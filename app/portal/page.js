@@ -25,27 +25,23 @@ const PortalHome = () => {
     const email = localStorage.getItem('email');
 
     useEffect(() => {
-        fetch('/api/user/?interests=' + user.email, {
+        fetch('/api/user/?interests=' + email, {
             method: 'GET',
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                if (data.users) {
-                    data.users.forEach((userData) => {
-                        if (userData.interests) {
+                if (data.userList) {
+                    data.userList.map((user) => {
+                        if (user.interests) {
                             setUserInterests((interests) => [
                                 ...interests,
-                                ...userData.interests,
+                                user.interests,
                             ]);
-                        } else {
-                            setUserInterests((interests) => [...interests]);
                         }
-                     })
+                    });
                 }
-            })
-        });
-    }, [userInterests, user?.email];
+            });
+    }, []);
 
     const getUserAppointments = async () => {
         // Returns a list of all the user's chats
@@ -61,7 +57,6 @@ const PortalHome = () => {
             setAppointments([]);
         }
     };
-
     useEffect(() => {
         getUserAppointments(email);
     }, []);
@@ -76,7 +71,15 @@ const PortalHome = () => {
             ) : (
                 <div className="flex flex-col space-y-4">
                     {appointments.map((account, index) => {
-                        return <AccountBox key={index} {...account} email />;
+                        return (
+                            <AccountBox
+                                key={index}
+                                {...account}
+                                email={email}
+                                userInterests={userInterests}
+                                index={index}
+                            />
+                        );
                     })}
                 </div>
             )}
@@ -84,7 +87,7 @@ const PortalHome = () => {
     );
 };
 
-const AccountBox = ({ people, date, email, receiver }) => {
+const AccountBox = ({ people, date, email, userInterests, index }) => {
     const appointmentDate = new Date(date);
     return (
         <div className="flex flex-col gap-4 p-6 bg-white rounded-lg shadow-md">
@@ -97,7 +100,7 @@ const AccountBox = ({ people, date, email, receiver }) => {
                     })}
                 </h1>
                 <h3 className="mb-2 font-medium text-gray-500 text-md">
-                    Meeting with: {people[0] === email ? people[0] : people[1]}
+                    Meeting with: {people[0] === email ? people[1] : people[0]}
                 </h3>
             </div>
 
@@ -112,7 +115,7 @@ const AccountBox = ({ people, date, email, receiver }) => {
                 <div className="flex flex-col gap-2 text-lg">
                     <h3>Interests:</h3>
                     <div className="flex space-x-2">
-                        {[userInterests].map((interest, index) => (
+                        {userInterests[index + 1].map((interest, index) => (
                             <span
                                 key={index}
                                 className="px-2 py-1 text-sm bg-gray-200 rounded"
