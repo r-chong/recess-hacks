@@ -1,11 +1,8 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-
+import { useRef, useState, useEffect, use } from 'react';
 import UserChatPreview from '@components/UserChatPreview';
 import pfp from '@public/pfp.png';
-
-import Image from 'next/image';
 
 const ChatsPage = () => {
     const [userMessages, setUserMessages] = useState([]);
@@ -28,9 +25,9 @@ const ChatsPage = () => {
         const userInfoResponse = await fetch('/api/user/?email=' + userEmail, {
             method: 'GET',
         }).then((res) => res.json());
-
-        setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
-        console.log(userInfos);
+        if (userInfoResponse !== null && userInfoResponse.user !== null) {
+            setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        }
     };
 
     const handleHorizantalScroll = (element, speed, distance, step) => {
@@ -66,19 +63,11 @@ const ChatsPage = () => {
         }
     }, [userMessages]);
 
-    const users = Array(20).fill({
-        firstName: 'Montgomery',
-        lastName: 'Burns',
-        avatar: pfp,
-        lastMessage: 'This was the last message i send to you',
-        favourite: true,
-        id: 'userId2',
-    });
-
     return (
         <div className={'h-full '}>
             <div className="flex flex-col">
-                <h1 className="p-4 text-3xl">Favourite People</h1>
+                {/* 
+                <h1 className="p-4 text-3xl">Favourite People</h1> */}
                 <div className="relative w-full">
                     <div className="relative">
                         <button
@@ -142,20 +131,19 @@ const ChatsPage = () => {
                         className="flex w-auto gap-4 px-8 py-4 overflow-x-scroll"
                         ref={elementRef}
                     >
-                        {users.map(
+                        {userInfos.map(
                             (user, index) =>
-                                user.favourite && (
-                                    <Image
-                                        className="h-full rounded-full w-28"
-                                        src={user.avatar}
-                                        alt={
-                                            user.firstName +
-                                            ' ' +
-                                            user.lastName +
-                                            "'s profile picture"
-                                        }
+                                /* Traditionally, we should check if they are favorite LOL */
+                                user.user !== null && (
+                                    <div
                                         key={index}
-                                    />
+                                        className="p-8 text-xl text-white rounded-full bg-neutral-600"
+                                    >
+                                        <h1>
+                                            {user.user.firstName[0] +
+                                                user.user.lastName[0]}
+                                        </h1>
+                                    </div>
                                 )
                         )}
                     </div>
@@ -164,11 +152,10 @@ const ChatsPage = () => {
             <div className="flex flex-col h-screen pb-32 overflow-y-scroll">
                 {userInfos.map(
                     (user, index) =>
-                        user && (
+                        user !== null && (
                             <UserChatPreview
                                 key={index}
                                 user={user.user}
-                                pfp={pfp}
                                 lastMessage={
                                     userMessages[index]?.messages.length > 0
                                         ? userMessages[index].messages[0]

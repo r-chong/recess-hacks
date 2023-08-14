@@ -26,7 +26,6 @@ export async function GET(req) {
     let searchURL = new URL(req.url);
     let searchParams = searchURL.searchParams;
     const userEmail = searchParams.get('email');
-    console.log('lel');
     try {
         // Find all chats and send back
         const chatData = await ChatModel.find({ people: { $in: [userEmail] } });
