@@ -20,7 +20,7 @@ const achievementsData = [
                 />
             </svg>
         ),
-        key1: true,
+        earned: false,
     },
     {
         title: 'Profile Button',
@@ -40,6 +40,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Social Butterfly',
@@ -60,6 +61,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Daily Journaler',
@@ -80,6 +82,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Memory Sharer',
@@ -100,6 +103,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Inspiring Storyteller',
@@ -120,6 +124,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Supportive Friend',
@@ -140,6 +145,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Health and Happiness',
@@ -160,6 +166,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Adventurer',
@@ -180,6 +187,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Creative Expression',
@@ -200,6 +208,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Tech Explorer',
@@ -220,6 +229,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Life Wisdom',
@@ -240,6 +250,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Compassionate Listener',
@@ -260,6 +271,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Gratitude Practitioner',
@@ -280,6 +292,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Community Organizer',
@@ -300,6 +313,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Positive Feedback',
@@ -320,6 +334,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Wellness Milestone',
@@ -340,6 +355,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Local Explorer',
@@ -360,6 +376,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Bookworm',
@@ -380,6 +397,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
 ];
 

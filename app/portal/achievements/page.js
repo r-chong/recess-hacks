@@ -4,11 +4,10 @@ import React, { useEffect, useState } from 'react';
 import achievementsData from './achievementsData';
 
 const AchievementsPage = () => {
-    const totalPoints = 3;
-    const [userBadges, setUserBadges] = useState();
+    const totalPoints = achievementsData.length;
+    const [userBadges, setUserBadges] = useState([]);
     let currentPoints = 1;
     const progressPercentage = (currentPoints / totalPoints) * 100;
-    //first fetch achievements, sync them with the mapped, key inside achievement card (is or not) - data fetched
 
     useEffect(() => {
         fetch('/api/user?email=' + localStorage.getItem('email'), {
@@ -16,15 +15,18 @@ const AchievementsPage = () => {
         }).then(async (res) => {
             if (res.status == 200) {
                 let body = await res.json();
-                console.log(body);
-                setUserBadges(body.achievements);
+                let badges = body.user.achievements;
+                for (let i = 0; i < achievementsData.length; i++) {
+                    let acheivementTitle = achievementsData[i].title;
+                    if (badges.includes(acheivementTitle)) {
+                        achievementsData[i].earned = true;
+                        currentPoints++;
+                    }
+                }
+                setUserBadges(achievementsData);
             }
         });
     }, []);
-
-    useEffect(() => {
-        console.log(userBadges);
-    }, [userBadges]);
 
     return (
         <div className="container mx-auto">
@@ -43,28 +45,20 @@ const AchievementsPage = () => {
                 </div>
             </div>
             <div className="flex flex-col space-y-4 h-[calc(100vh-148px)] overflow-scroll p-6">
-                {achievementsData.map((achievement, index) => (
-                    <AchievementCard
-                        key={index}
-                        {...achievement}
-                        key1={
-                            userBadges
-                                ? userBadges[achievement.label] === true && true
-                                : false
-                        }
-                    />
+                {userBadges.map((achievement, index) => (
+                    <AchievementCard key={index} {...achievement} />
                 ))}
             </div>
         </div>
     );
 };
 
-const AchievementCard = ({ title, description, icon, key1 }) => {
+const AchievementCard = ({ title, description, icon, earned }) => {
     return (
         <div
             className={
                 'flex flex-row p-4 ' +
-                (key1 ? 'bg-green-500' : 'bg-blue-50') +
+                (earned ? 'bg-green-500' : 'bg-blue-50') +
                 ' rounded shadow'
             }
         >
