@@ -1,10 +1,8 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-
+import { useRef, useState, useEffect, use } from 'react';
 import UserChatPreview from '@components/UserChatPreview';
 import pfp from '@public/pfp.png';
-
 import Image from 'next/image';
 
 const ChatsPage = () => {
@@ -12,7 +10,14 @@ const ChatsPage = () => {
     const [userInfos, setUserInfos] = useState([]);
     const [arrowDisable, setArrowDisable] = useState(true);
     const elementRef = useRef(null);
-
+    let users = Array(20).fill({
+        firstName: 'Montgomery',
+        lastName: 'Burns',
+        avatar: pfp,
+        lastMessage: 'This was the last message i send to you',
+        favourite: true,
+        id: 'userId2',
+    });
     //TODO Request the user's messages from the server based on the user's ID
     const getUserMessages = async () => {
         let userEmail = localStorage.getItem('email');
@@ -29,8 +34,10 @@ const ChatsPage = () => {
             method: 'GET',
         }).then((res) => res.json());
 
-        setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
-        console.log(userInfos);
+        if (userInfoResponse.user !== null) {
+            setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        }
+        console.log(userInfoResponse);
     };
 
     const handleHorizantalScroll = (element, speed, distance, step) => {
@@ -65,15 +72,6 @@ const ChatsPage = () => {
             });
         }
     }, [userMessages]);
-
-    const users = Array(20).fill({
-        firstName: 'Montgomery',
-        lastName: 'Burns',
-        avatar: pfp,
-        lastMessage: 'This was the last message i send to you',
-        favourite: true,
-        id: 'userId2',
-    });
 
     return (
         <div className={'h-full '}>
@@ -164,11 +162,10 @@ const ChatsPage = () => {
             <div className="flex flex-col h-screen pb-32 overflow-y-scroll">
                 {userInfos.map(
                     (user, index) =>
-                        user && (
+                        user !== null && (
                             <UserChatPreview
                                 key={index}
                                 user={user.user}
-                                pfp={pfp}
                                 lastMessage={
                                     userMessages[index]?.messages.length > 0
                                         ? userMessages[index].messages[0]
