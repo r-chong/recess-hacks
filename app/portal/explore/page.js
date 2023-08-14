@@ -62,28 +62,29 @@ const ExplorePage = () => {
     };
 
     return (
-        <div className="container p-6 mx-auto ">
-            <div className="flex flex-row mb-4">
-                <form onSubmit={handleSearch}>
-                    <input
-                        type="text"
-                        placeholder="Search interests"
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                        }}
-                        className="w-full px-4 py-2 border rounded"
-                    />
-                    <GradientButton text="Search" type="submit" />
-                </form>
-            </div>
+        <div className="container p-8 mx-auto">
+            <form
+                onSubmit={handleSearch}
+                className="flex flex-row justify-around gap-3"
+            >
+                <input
+                    type="text"
+                    placeholder="Search interests"
+                    value={searchTerm}
+                    onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                    }}
+                    className="w-full px-4 py-2 border rounded"
+                />
+                <GradientButton text="Search" type="submit" />
+            </form>
 
-            <div className="flex flex-wrap space-x-2">
+            <div className="flex flex-row flex-wrap gap-2 pt-5">
                 {filteredInterests.map((interest, index) => (
                     <button
                         key={index}
                         onClick={() => getSearchTerm(interest)}
-                        className={`py-1 px-3 rounded ${
+                        className={`py-1 px-3 rounded flex-grow-1 ${
                             selectedInterests.includes(interest)
                                 ? 'bg-blue-500 text-white'
                                 : 'bg-gray-200 text-gray-600'

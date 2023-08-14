@@ -46,6 +46,11 @@ const LoginPage = () => {
     return (
         <>
             <div className="flex flex-col gap-5 p-5">
+                <div className="w-full p-5 rounded-md bg-slate-300">
+                    <h1 className="text-lg text-center">
+                        Login to Your Account
+                    </h1>
+                </div>
                 {inputs.map((input) => (
                     <Input
                         key={input.label}
@@ -57,7 +62,7 @@ const LoginPage = () => {
                 <input
                     type="submit"
                     value="Login"
-                    className="p-2 bg-gray-200 rounded-md outline-none"
+                    className="p-2 bg-gray-200 rounded-md outline-none hover:cursor-pointer"
                     onClick={submitData}
                 />
                 <ToastContainer />
