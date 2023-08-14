@@ -65,6 +65,7 @@ export async function DELETE(req) {
 // TODO This needs to be fixed lol
 export async function PUT(req) {
     const updateData = await req.json();
+
     try {
         await UserModel.findOneAndUpdate(
             { email: updateData.email },

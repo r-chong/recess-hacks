@@ -26,6 +26,7 @@ export default function ProfilePage() {
                 return data;
             });
     }, [profileEmail]);
+
     return (
         <div className="container flex flex-col gap-3 p-10">
             <div className="flex flex-row flex-wrap justify-between">
