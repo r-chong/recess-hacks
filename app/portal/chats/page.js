@@ -6,7 +6,16 @@ import pfp from '@public/pfp.png';
 
 const ChatsPage = () => {
     const [userMessages, setUserMessages] = useState([]);
-    const [userInfos, setUserInfos] = useState([]);
+    const [userInfos, setUserInfos] = useState([
+        {
+            user: {
+                firstName: 'AI',
+                lastName: 'Bot',
+                profilePicture: pfp,
+                email: 'ai',
+            },
+        },
+    ]);
     const [arrowDisable, setArrowDisable] = useState(true);
     const elementRef = useRef(null);
 
@@ -157,8 +166,8 @@ const ChatsPage = () => {
                                 key={index}
                                 user={user.user}
                                 lastMessage={
-                                    userMessages[index]?.messages.length > 0
-                                        ? userMessages[index].messages[0]
+                                    userMessages[index - 1]?.messages.length > 0
+                                        ? userMessages[index - 1].messages[0]
                                               ?.message
                                         : 'Start a Conversation'
                                 }
