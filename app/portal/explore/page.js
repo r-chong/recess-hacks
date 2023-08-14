@@ -3,27 +3,31 @@
 import React, { useState } from 'react';
 import GradientButton from '@components/GradientButton';
 
-const interestsData = [
-    'Programming',
-    'Hiking',
-    'Photography',
-    'Cooking',
-    'Reading',
-    'Gaming',
-    'Fitness',
-    'Travel',
-];
-
 const ExplorePage = () => {
     // search variables
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [userCards, setUserCards] = useState([]);
+    const [interestsData, setInterestsData] = useState([
+        'Programming',
+        'Hiking',
+        'Photography',
+        'Cooking',
+        'Reading',
+        'Gaming',
+        'Fitness',
+        'Travel',
+    ]);
 
     const getUserCards = async () => {
         // Returns a list of all the user cards (no params)
         await fetch('/api/user').then((res) => res.json());
         setUserCards([]);
+    };
+
+    const getAllInterests = async () => {
+        await fetch('api/user/interests').then((res = res.json()));
+        setInterestsData(res);
     };
 
     const getSearchTerm = async (interest) => {
@@ -80,6 +84,7 @@ const ExplorePage = () => {
                     <GradientButton text="Search" type="submit" />
                 </form>
             </div>
+            <GradientButton text="Search" onClick={getAllInterests()} />
             <div className="flex flex-wrap space-x-2">
                 {filteredInterests.map((interest, index) => (
                     <button
