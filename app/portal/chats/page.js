@@ -145,7 +145,7 @@ const ChatsPage = () => {
                                 user.user !== null && (
                                     <div
                                         key={index}
-                                        className="p-8 text-xl text-white rounded-full bg-neutral-600"
+                                        className="flex items-center justify-center w-24 h-24 text-2xl text-white rounded-full bg-neutral-600"
                                     >
                                         <h1>
                                             {user.user.firstName[0] +

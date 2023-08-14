@@ -25,7 +25,7 @@ function MessagesDisplay({ messages, userId, receiverId }) {
                             className={
                                 'p-2 px-4 m-2 rounded-3xl inline-block max-w-[min(75vw,24rem)] ' +
                                 (message.sender === userId
-                                    ? 'bg-gray-500 text-white'
+                                    ? 'bg-red-500 text-white'
                                     : 'bg-gray-200 text-gray-900')
                             }
                         >

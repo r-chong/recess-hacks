@@ -22,6 +22,7 @@ const accountsData = [
 const PortalHome = () => {
     const [appointments, setAppointments] = useState([]);
     const [userInterests, setUserInterests] = useState([[]]);
+    const [users, setUsers] = useState([[]]);
     const email = localStorage.getItem('email');
 
     useEffect(() => {
@@ -38,6 +39,10 @@ const PortalHome = () => {
                                 user.interests,
                             ]);
                         }
+                        setUsers((users) => [
+                            ...users,
+                            [user.firstName, user.lastName],
+                        ]);
                     });
                 }
             });
@@ -78,6 +83,7 @@ const PortalHome = () => {
                                 email={email}
                                 userInterests={userInterests}
                                 index={index}
+                                users={users}
                             />
                         );
                     })}
@@ -87,7 +93,7 @@ const PortalHome = () => {
     );
 };
 
-const AccountBox = ({ people, date, email, userInterests, index }) => {
+const AccountBox = ({ people, date, email, userInterests, index, users }) => {
     const appointmentDate = new Date(date);
     return (
         <div className="flex flex-col gap-4 p-6 bg-white rounded-lg shadow-md">
@@ -105,12 +111,11 @@ const AccountBox = ({ people, date, email, userInterests, index }) => {
             </div>
 
             <div className="flex gap-4">
-                <div className="mb-4">
-                    <Image
-                        src={profilePic}
-                        alt={`${email}'s Profile`}
-                        className="w-16 h-16 mr-auto rounded-full"
-                    />
+                <div className="flex items-center justify-center text-white rounded-full w-14 h-14 bg-neutral-600">
+                    <h1>
+                        {users[index + 1][0][0]}
+                        {users[index + 1][1][0]}
+                    </h1>
                 </div>
                 <div className="flex flex-col gap-2 text-lg">
                     <h3>Interests:</h3>

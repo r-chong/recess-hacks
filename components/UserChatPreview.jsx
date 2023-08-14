@@ -10,7 +10,7 @@ const UserChatPreview = ({ user, lastMessage }) => {
         >
             <div className="flex gap-4 ">
                 <div>
-                    <div className="p-3 text-white rounded-full bg-neutral-600">
+                    <div className="flex items-center justify-center text-white rounded-full w-14 h-14 bg-neutral-600">
                         <h1>{user?.firstName[0] + user?.lastName[0]}</h1>
                     </div>
                 </div>
