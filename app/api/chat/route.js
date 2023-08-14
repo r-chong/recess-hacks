@@ -79,7 +79,6 @@ export async function PUT(req) {
     try {
         const people = updateData.people;
         const messages = updateData.messages;
-        console.log(people);
         await ChatModel.findOneAndUpdate(
             { people: { $all: people } },
             { $push: { messages: messages } }

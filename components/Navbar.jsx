@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import addAchievement from '@app/lib/addAchievement';
 
 const Navbar = () => {
     const [page, setPage] = useState('');
@@ -12,6 +13,10 @@ const Navbar = () => {
     useEffect(() => {
         setPage(pathname);
     }, [pathname]);
+
+    function handleProfileAchievement() {
+        addAchievement(email, 'Profilic');
+    }
 
     return (
         <div>
@@ -138,7 +143,10 @@ const Navbar = () => {
                                     'bg-gray-200 text-gray-600')
                             }
                         >
-                            <Link href={'/portal/profile/' + email}>
+                            <Link
+                                href={'/portal/profile/' + email}
+                                onClick={handleProfileAchievement}
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"

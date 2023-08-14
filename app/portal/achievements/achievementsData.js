@@ -23,7 +23,7 @@ const achievementsData = [
         earned: false,
     },
     {
-        title: 'Profile Button',
+        title: 'Profilic',
         description: "You've clicked the profile button",
         icon: (
             <svg
