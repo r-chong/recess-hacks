@@ -13,12 +13,12 @@ connectDB();
 
 export async function GET(req) {
     let searchURL = new URL(req.url);
-    console.log();
     let searchParams = searchURL.searchParams;
     const interest = searchParams.get('interest');
-    // Find and return one user based on email
-    let users = await UserModel.find({ interest: { $in: [interest] } });
 
+    let users = await UserModel.find({
+        interests: { $regex: interest, $options: 'i' },
+    });
     if (users) {
         return NextResponse.json({ users: users }, { status: 200 });
     } else {
