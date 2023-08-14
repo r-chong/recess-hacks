@@ -39,3 +39,17 @@ export async function GET(req) {
         }
     }
 }
+export async function POST(req) {
+    let body = await req.body.json();
+    let userEmails = body.userEmails;
+    // Given a bunch of emails, find the users with those emails and return their interests
+    try {
+        let userInterests = await UserModel.find(
+            { email: { $in: userEmails } },
+            { interests: 1 }
+        );
+        return NextResponse.json({ userInterests }, { status: 200 });
+    } catch (err) {
+        return NextResponse.json({ error: err }, { status: 500 });
+    }
+}
