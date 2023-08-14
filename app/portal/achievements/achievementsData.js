@@ -23,9 +23,8 @@ const achievementsData = [
         key1: true,
     },
     {
-        title: 'Active Contributor',
-        description:
-            "You've posted your thoughts and stories, contributing to a positive atmosphere in the community.",
+        title: 'Profile Button',
+        description: "You've clicked the profile button",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -366,26 +365,6 @@ const achievementsData = [
         title: 'Bookworm',
         description:
             "You've recommended a book that has been a source of inspiration, knowledge, or entertainment for you.",
-        icon: (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                />
-            </svg>
-        ),
-    },
-    {
-        title: 'Golden Age Wisdom',
-        description:
-            'Your insights on life during the golden years have been enlightening to the community.',
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
