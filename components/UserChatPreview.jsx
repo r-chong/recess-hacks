@@ -15,7 +15,7 @@ const UserChatPreview = ({ user, lastMessage }) => {
                         alt={user?.firstName + "'s avatar"}
                         width={50}
                         height={50}
-                        className="rounded-full"
+                        className="rounded-full w-14 h-14"
                     />
                 </div>
                 <div className="flex flex-col gap-1">

@@ -10,13 +10,10 @@ const ChatsPage = () => {
     const [userInfos, setUserInfos] = useState([]);
     const [arrowDisable, setArrowDisable] = useState(true);
     const elementRef = useRef(null);
-    let users = Array(20).fill({
+    let users = Array(3).fill({
         firstName: 'Montgomery',
         lastName: 'Burns',
-        avatar: pfp,
-        lastMessage: 'This was the last message i send to you',
-        favourite: true,
-        id: 'userId2',
+        profilePicture: pfp,
     });
     //TODO Request the user's messages from the server based on the user's ID
     const getUserMessages = async () => {
@@ -137,22 +134,22 @@ const ChatsPage = () => {
                         className="flex w-auto gap-4 px-8 py-4 overflow-x-scroll"
                         ref={elementRef}
                     >
-                        {users.map(
-                            (user, index) =>
-                                user.favourite && (
-                                    <Image
-                                        className="h-full rounded-full w-28"
-                                        src={user.avatar}
-                                        alt={
-                                            user.firstName +
-                                            ' ' +
-                                            user.lastName +
-                                            "'s profile picture"
-                                        }
-                                        key={index}
-                                    />
-                                )
-                        )}
+                        {userInfos.map((user, index) => (
+                            /* Traditionally, we should check if they are favorite LOL */
+                            <Image
+                                className="rounded-full w-28 h-28"
+                                src={user.user.profilePicture}
+                                width={50}
+                                height={50}
+                                alt={
+                                    user.user.firstName +
+                                    ' ' +
+                                    user.user.lastName +
+                                    "'s profile picture"
+                                }
+                                key={index}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
