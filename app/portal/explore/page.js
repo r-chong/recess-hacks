@@ -83,10 +83,13 @@ const ExplorePage = () => {
                 {filteredInterests.map((interest, index) => (
                     <button
                         key={index}
-                        onClick={() => getSearchTerm(interest)}
+                        onClick={
+                            (() => getSearchTerm(interest),
+                            () => handleInterestToggle(interest))
+                        }
                         className={`py-1 px-3 rounded flex-grow-1 ${
                             selectedInterests.includes(interest)
-                                ? 'bg-blue-500 text-white'
+                                ? 'bg-red-400 text-white'
                                 : 'bg-gray-200 text-gray-600'
                         }`}
                     >
