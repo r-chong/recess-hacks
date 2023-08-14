@@ -1,37 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import GradientButton from '@components/GradientButton';
-
-let interestsData;
-
-async function getAllInterests() {
-    // Returns a list of all the user cards (no params)
-    await fetch('/api/user/interests/', {
-        method: 'GET',
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        });
-}
-
-(async () => {
-    await getAllInterests();
-    console.log(interestsData);
-})();
 
 const ExplorePage = () => {
     // search variables
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [userCards, setUserCards] = useState([]);
-
+    const [filteredInterests, setFilteredInterests] = useState([]);
     const getUserCards = async () => {
         // Returns a list of all the user cards (no params)
         await fetch('/api/user').then((res) => res.json());
         setUserCards([]);
     };
+
+    useEffect(() => {
+        fetch('/api/user/interests/', {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                let filteredData = data.interests.filter((interest) =>
+                    interest.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setFilteredInterests(filteredData);
+            });
+    }, [searchTerm]);
 
     const getSearchTerm = async (interest) => {
         // Returns a list of all the user cards (no params)
@@ -66,16 +61,6 @@ const ExplorePage = () => {
         }
     };
 
-    console.log(interestsData);
-
-    // used for mapping
-    let filteredInterests = [];
-    if (interestsData) {
-        filteredInterests = interestsData.filter((interest) =>
-            interest.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }
-
     return (
         <div className="container p-6 mx-auto ">
             <div className="flex flex-row mb-4">
@@ -92,6 +77,10 @@ const ExplorePage = () => {
                     <GradientButton text="Search" type="submit" />
                 </form>
             </div>
+            <GradientButton
+                text="get all interests"
+                onClick={getAllInterests}
+            />
             <div className="flex flex-wrap space-x-2">
                 {filteredInterests.map((interest, index) => (
                     <button
