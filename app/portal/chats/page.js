@@ -75,13 +75,12 @@ const ChatsPage = () => {
     return (
         <div className={'h-[calc(100vh-148px)] '}>
             <div className="flex flex-col">
-                {/* 
-                <h1 className="p-4 text-3xl">Favourite People</h1> */}
+                <h1 className="p-4 text-3xl">Favourite People</h1>
                 <div className="relative w-full">
                     <div className="relative">
                         <button
                             className={
-                                'absolute left-0 text-gray-400 top-14 ' +
+                                'absolute left-0 text-gray-400 top-10 ' +
                                 (arrowDisable && 'hidden')
                             }
                             onClick={() => {

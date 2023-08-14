@@ -27,7 +27,7 @@ export default function SignupPage() {
                         <p className="pb-5">
                             Join with us and socialize across generations.
                         </p>
-                        <GradientButton onClick={''} text="Get Started" />
+                        {/* <GradientButton onClick={''} text="Get Started" /> */}
                     </div>
                 </div>
             </div>
