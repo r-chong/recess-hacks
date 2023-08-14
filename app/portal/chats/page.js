@@ -3,18 +3,13 @@
 import { useRef, useState, useEffect, use } from 'react';
 import UserChatPreview from '@components/UserChatPreview';
 import pfp from '@public/pfp.png';
-import Image from 'next/image';
 
 const ChatsPage = () => {
     const [userMessages, setUserMessages] = useState([]);
     const [userInfos, setUserInfos] = useState([]);
     const [arrowDisable, setArrowDisable] = useState(true);
     const elementRef = useRef(null);
-    let users = Array(3).fill({
-        firstName: 'Montgomery',
-        lastName: 'Burns',
-        profilePicture: pfp,
-    });
+
     //TODO Request the user's messages from the server based on the user's ID
     const getUserMessages = async () => {
         let userEmail = localStorage.getItem('email');
@@ -30,8 +25,9 @@ const ChatsPage = () => {
         const userInfoResponse = await fetch('/api/user/?email=' + userEmail, {
             method: 'GET',
         }).then((res) => res.json());
-
-        setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        if (userInfoResponse !== null && userInfoResponse.user !== null) {
+            setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        }
     };
 
     const handleHorizantalScroll = (element, speed, distance, step) => {
@@ -70,7 +66,8 @@ const ChatsPage = () => {
     return (
         <div className={'h-[calc(100vh-148px)] '}>
             <div className="flex flex-col">
-                <h1 className="p-4 text-3xl">Favourite People</h1>
+                {/* 
+                <h1 className="p-4 text-3xl">Favourite People</h1> */}
                 <div className="relative w-full">
                     <div className="relative">
                         <button
@@ -134,22 +131,21 @@ const ChatsPage = () => {
                         className="flex w-auto gap-4 px-8 py-4 overflow-x-scroll"
                         ref={elementRef}
                     >
-                        {userInfos.map((user, index) => (
-                            /* Traditionally, we should check if they are favorite LOL */
-                            <Image
-                                className="rounded-full w-28 h-28"
-                                src={user.user.profilePicture}
-                                width={50}
-                                height={50}
-                                alt={
-                                    user.user.firstName +
-                                    ' ' +
-                                    user.user.lastName +
-                                    "'s profile picture"
-                                }
-                                key={index}
-                            />
-                        ))}
+                        {userInfos.map(
+                            (user, index) =>
+                                /* Traditionally, we should check if they are favorite LOL */
+                                user.user !== null && (
+                                    <div
+                                        key={index}
+                                        className="p-8 text-xl text-white rounded-full bg-neutral-600"
+                                    >
+                                        <h1>
+                                            {user.user.firstName[0] +
+                                                user.user.lastName[0]}
+                                        </h1>
+                                    </div>
+                                )
+                        )}
                     </div>
                 </div>
             </div>

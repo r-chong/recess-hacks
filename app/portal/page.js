@@ -21,7 +21,23 @@ const accountsData = [
 
 const PortalHome = () => {
     const [appointments, setAppointments] = useState([]);
+    const [userInterests, setUserInterests] = useState([[]]);
     const email = localStorage.getItem('email');
+
+    useEffect(() => {
+        fetch('/api/user/?email=' + email, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.user.interests) {
+                    set([user, [data.user.interests]]);
+                } else {
+                    setUserInterests([user, []]);
+                }
+            });
+    }, [userInterests]);
 
     const getUserAppointments = async () => {
         // Returns a list of all the user's chats
@@ -88,16 +104,14 @@ const AccountBox = ({ people, date, email, receiver }) => {
                 <div className="flex flex-col gap-2 text-lg">
                     <h3>Interests:</h3>
                     <div className="flex space-x-2">
-                        {['Cooking', 'Fitness', 'Reading'].map(
-                            (interest, index) => (
-                                <span
-                                    key={index}
-                                    className="px-2 py-1 text-sm bg-gray-200 rounded"
-                                >
-                                    {interest}
-                                </span>
-                            )
-                        )}
+                        {[userInterests].map((interest, index) => (
+                            <span
+                                key={index}
+                                className="px-2 py-1 text-sm bg-gray-200 rounded"
+                            >
+                                {interest}
+                            </span>
+                        ))}
                     </div>
                 </div>
             </div>

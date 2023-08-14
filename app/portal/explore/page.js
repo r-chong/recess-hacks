@@ -2,20 +2,30 @@
 
 import React, { useEffect, useState } from 'react';
 import GradientButton from '@components/GradientButton';
+import sendMessage from '@app/lib/sendMessage';
+import { useRouter } from 'next/navigation';
 
 const ExplorePage = () => {
     // search variables
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedInterests, setSelectedInterests] = useState([]);
-    const [userCards, setUserCards] = useState([]);
+    // * userData is the ultimate source of truth, userCards is the rendered
+    const [userData, setUserData] = useState();
+    const [userCards, setUserCards] = useState();
     const [filteredInterests, setFilteredInterests] = useState([]);
-    const getUserCards = async () => {
+    const router = useRouter();
+
+    const getAllUsers = async () => {
         // Returns a list of all the user cards (no params)
-        await fetch('/api/user').then((res) => res.json());
-        setUserCards([]);
+        await fetch('/api/user')
+            .then((res) => res.json())
+            .then((data) => {
+                setUserData(data.userList);
+                setUserCards(data.userList);
+            });
     };
 
-    useEffect(() => {
+    const getAllInterests = async () => {
         fetch('/api/user/interests/', {
             method: 'GET',
         })
@@ -26,7 +36,19 @@ const ExplorePage = () => {
                 );
                 setFilteredInterests(filteredData);
             });
-    }, [searchTerm]);
+    };
+
+    useEffect(() => {
+        getAllUsers();
+        getAllInterests();
+    }, []);
+
+    useEffect(() => {
+        //Anytime userCards is empty, put userData in it
+        if (!userCards) {
+            setUserCards(userData);
+        }
+    }, [userData, userCards]);
 
     const getSearchTerm = async (interest) => {
         // Returns a list of all the user cards (no params)
@@ -36,11 +58,7 @@ const ExplorePage = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                if (userCards) {
-                    setUserCards(userCards[0]?.userCards);
-                } else {
-                    setUserCards([]);
-                }
+                setUserCards(data.users);
             });
     };
 
@@ -83,12 +101,47 @@ const ExplorePage = () => {
                 {filteredInterests.map((interest, index) => (
                     <button
                         key={index}
-                        onClick={() => getSearchTerm(interest)}
+                        onClick={
+                            (() => getSearchTerm(interest),
+                            () => handleInterestToggle(interest))
+                        }
                         className={`py-1 px-3 rounded flex-grow-1 ${
                             selectedInterests.includes(interest)
-                                ? 'bg-blue-500 text-white'
+                                ? 'bg-red-400 text-white'
                                 : 'bg-gray-200 text-gray-600'
                         }`}
+                    >
+                        {interest}
+                    </button>
+                ))}
+            </div>
+            <div className="flex flex-col gap-3">
+                {userCards?.map((user, index) => (
+                    <UserCard key={index} user={user} router={router} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const UserCard = ({ user, router }) => {
+    return (
+        <div
+            onClick={() => {
+                let success = sendMessage(user.email);
+                if (success) router.push('/portal/chats');
+            }}
+            className="flex flex-col items-center justify-center gap-2 p-4 bg-white rounded shadow-md cursor-pointer "
+        >
+            <h1 className="text-2xl font-bold">
+                {user.firstName + ' ' + user.lastName}
+            </h1>
+            <p className="text-gray-500">{user.bio}</p>
+            <div className="flex flex-row gap-2">
+                {user.interests.map((interest, index) => (
+                    <button
+                        key={index}
+                        className="px-3 py-1 text-gray-500 bg-gray-200 rounded flex-grow-1"
                     >
                         {interest}
                     </button>
