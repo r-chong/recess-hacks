@@ -30,7 +30,6 @@ const ChatsPage = () => {
         }).then((res) => res.json());
 
         setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
-        console.log(userInfos);
     };
 
     const handleHorizantalScroll = (element, speed, distance, step) => {

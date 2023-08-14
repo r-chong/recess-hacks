@@ -42,10 +42,6 @@ const PortalHome = () => {
         getUserAppointments(email);
     }, []);
 
-    useEffect(() => {
-        console.log(appointments);
-    }, [appointments]);
-
     return (
         <div className="container p-6 mx-auto h-[calc(100vh-148px)] overflow-y-scroll">
             <h1 className="mb-4 text-2xl font-semibold">
@@ -55,16 +51,16 @@ const PortalHome = () => {
                 <h1 className="">No Upcoming Meetings</h1>
             ) : (
                 <div className="flex flex-col space-y-4">
-                    {appointments.map((account, index) => (
-                        <AccountBox key={index} {...account} email />
-                    ))}
+                    {appointments.map((account, index) => {
+                        return <AccountBox key={index} {...account} email />;
+                    })}
                 </div>
             )}
         </div>
     );
 };
 
-const AccountBox = ({ people, date, email }) => {
+const AccountBox = ({ people, date, email, receiver }) => {
     const appointmentDate = new Date(date);
     return (
         <div className="flex flex-col gap-4 p-6 bg-white rounded-lg shadow-md">
@@ -77,7 +73,7 @@ const AccountBox = ({ people, date, email }) => {
                     })}
                 </h1>
                 <h3 className="mb-2 font-medium text-gray-500 text-md">
-                    Meeting with: {people[0] === email ? people[1] : people[0]}
+                    Meeting with: {people[0] === email ? people[0] : people[1]}
                 </h3>
             </div>
 
