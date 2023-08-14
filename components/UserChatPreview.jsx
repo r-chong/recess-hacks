@@ -10,13 +10,9 @@ const UserChatPreview = ({ user, lastMessage }) => {
         >
             <div className="flex gap-4 ">
                 <div>
-                    <Image
-                        src={user?.profilePicture}
-                        alt={user?.firstName + "'s avatar"}
-                        width={50}
-                        height={50}
-                        className="rounded-full w-14 h-14"
-                    />
+                    <div className="p-3 text-white rounded-full bg-neutral-600">
+                        <h1>{user?.firstName[0] + user?.lastName[0]}</h1>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-medium">

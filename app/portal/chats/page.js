@@ -30,8 +30,9 @@ const ChatsPage = () => {
         const userInfoResponse = await fetch('/api/user/?email=' + userEmail, {
             method: 'GET',
         }).then((res) => res.json());
-
-        setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        if (userInfoResponse !== null && userInfoResponse.user !== null) {
+            setUserInfos((userInfos) => [...userInfos, userInfoResponse]);
+        }
     };
 
     const handleHorizantalScroll = (element, speed, distance, step) => {
@@ -134,22 +135,21 @@ const ChatsPage = () => {
                         className="flex w-auto gap-4 px-8 py-4 overflow-x-scroll"
                         ref={elementRef}
                     >
-                        {userInfos.map((user, index) => (
-                            /* Traditionally, we should check if they are favorite LOL */
-                            <Image
-                                className="rounded-full w-28 h-28"
-                                src={user.user.profilePicture}
-                                width={50}
-                                height={50}
-                                alt={
-                                    user.user.firstName +
-                                    ' ' +
-                                    user.user.lastName +
-                                    "'s profile picture"
-                                }
-                                key={index}
-                            />
-                        ))}
+                        {userInfos.map(
+                            (user, index) =>
+                                /* Traditionally, we should check if they are favorite LOL */
+                                user.user !== null && (
+                                    <div
+                                        key={index}
+                                        className="p-3 text-white rounded-full bg-neutral-600"
+                                    >
+                                        <h1>
+                                            {user.user.firstName[0] +
+                                                user.user.lastName[0]}
+                                        </h1>
+                                    </div>
+                                )
+                        )}
                     </div>
                 </div>
             </div>
