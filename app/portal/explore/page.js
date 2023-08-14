@@ -5,11 +5,16 @@ import GradientButton from '@components/GradientButton';
 
 let interestsData;
 
-const getAllInterests = async () => {
-    const res = await fetch('api/user/interests/');
-    const data = await res.json();
-    interestsData = data;
-};
+async function getAllInterests() {
+    // Returns a list of all the user cards (no params)
+    await fetch('/api/user/interests/', {
+        method: 'GET',
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        });
+}
 
 (async () => {
     await getAllInterests();
@@ -75,9 +80,12 @@ const ExplorePage = () => {
     console.log(interestsData);
 
     // used for mapping
-    const filteredInterests = interestsData.filter((interest) =>
-        interest.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    let filteredInterests = [];
+    if (interestsData) {
+        filteredInterests = interestsData.filter((interest) =>
+            interest.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }
 
     return (
         <div className="container p-6 mx-auto ">
@@ -95,7 +103,10 @@ const ExplorePage = () => {
                     <GradientButton text="Search" type="submit" />
                 </form>
             </div>
-            <GradientButton text="Search" onClick={getAllInterests()} />
+            <GradientButton
+                text="get all interests"
+                onClick={getAllInterests}
+            />
             <div className="flex flex-wrap space-x-2">
                 {filteredInterests.map((interest, index) => (
                     <button
