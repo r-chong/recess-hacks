@@ -28,14 +28,14 @@ const ExplorePage = () => {
 
     const getSearchTerm = async (interest) => {
         // Returns a list of all the user cards (no params)
-        await fetch('/api/user/interest?interest=' + interest, {
+        await fetch('/api/user/interests/?interest=' + interest, {
             method: 'GET',
         })
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                if (userInterestResponse.userCards) {
-                    setUserCards(userInterestResponse?.userCards[0]?.userCards);
+                if (userCards) {
+                    setUserCards(userCards[0]?.userCards);
                 } else {
                     setUserCards([]);
                 }
@@ -44,7 +44,8 @@ const ExplorePage = () => {
 
     // search functions
     const handleSearch = (event) => {
-        getSearchTerm(event.target.value);
+        event.preventDefault();
+        getSearchTerm(searchTerm);
     };
 
     // only filter if it exists
@@ -65,16 +66,19 @@ const ExplorePage = () => {
 
     return (
         <div className="container p-6 mx-auto ">
-            <div className="flex mb-4">
-                <input
-                    type="text"
-                    placeholder="Search interests"
-                    value={searchTerm}
-                    className="w-full px-4 py-2 border rounded"
-                />
-                <GradientButton text="Search">
-                    <button onClick={() => getSearchTerm()}></button>
-                </GradientButton>
+            <div className="flex flex-row mb-4">
+                <form onSubmit={handleSearch}>
+                    <input
+                        type="text"
+                        placeholder="Search interests"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                        }}
+                        className="w-full px-4 py-2 border rounded"
+                    />
+                    <GradientButton text="Search" type="submit" />
+                </form>
             </div>
             <div className="flex flex-wrap space-x-2">
                 {filteredInterests.map((interest, index) => (
