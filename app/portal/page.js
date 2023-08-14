@@ -25,19 +25,27 @@ const PortalHome = () => {
     const email = localStorage.getItem('email');
 
     useEffect(() => {
-        fetch('/api/user/?email=' + email, {
+        fetch('/api/user/?interests=' + user.email, {
             method: 'GET',
         })
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                if (data.user.interests) {
-                    set([user, [data.user.interests]]);
-                } else {
-                    setUserInterests([user, []]);
+                if (data.users) {
+                    data.users.forEach((userData) => {
+                        if (userData.interests) {
+                            setUserInterests((interests) => [
+                                ...interests,
+                                ...userData.interests,
+                            ]);
+                        } else {
+                            setUserInterests((interests) => [...interests]);
+                        }
+                     })
                 }
-            });
-    }, [userInterests]);
+            })
+        });
+    }, [userInterests, user?.email];
 
     const getUserAppointments = async () => {
         // Returns a list of all the user's chats
