@@ -48,12 +48,18 @@ const PortalHome = () => {
 
     return (
         <div className="container p-6 mx-auto">
-            <h1 className="mb-4 text-2xl font-semibold">Upcoming Meetups</h1>
-            <div className="flex flex-col space-y-4">
-                {appointments.map((account, index) => (
-                    <AccountBox key={index} {...account} email />
-                ))}
-            </div>
+            <h1 className="mb-4 text-2xl font-semibold">
+                Upcoming Appointments
+            </h1>
+            {appointments.length === 0 ? (
+                <h1 className="">No Upcoming Meetings</h1>
+            ) : (
+                <div className="flex flex-col space-y-4">
+                    {appointments.map((account, index) => (
+                        <AccountBox key={index} {...account} email />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
