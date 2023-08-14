@@ -3,31 +3,40 @@
 import React, { useState } from 'react';
 import GradientButton from '@components/GradientButton';
 
+let interestsData;
+
+const getAllInterests = async () => {
+    const res = await fetch('api/user/interests/');
+    const data = await res.json();
+    interestsData = data;
+};
+
+(async () => {
+    await getAllInterests();
+    console.log(interestsData);
+})();
+
+// const interestsData = [
+//     'Programming',
+//     'Hiking',
+//     'Photography',
+//     'Cooking',
+//     'Reading',
+//     'Gaming',
+//     'Fitness',
+//     'Travel',
+// ];
+
 const ExplorePage = () => {
     // search variables
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [userCards, setUserCards] = useState([]);
-    const [interestsData, setInterestsData] = useState([
-        'Programming',
-        'Hiking',
-        'Photography',
-        'Cooking',
-        'Reading',
-        'Gaming',
-        'Fitness',
-        'Travel',
-    ]);
 
     const getUserCards = async () => {
         // Returns a list of all the user cards (no params)
         await fetch('/api/user').then((res) => res.json());
         setUserCards([]);
-    };
-
-    const getAllInterests = async () => {
-        await fetch('api/user/interests').then((res = res.json()));
-        setInterestsData(res);
     };
 
     const getSearchTerm = async (interest) => {
@@ -62,6 +71,8 @@ const ExplorePage = () => {
             setSelectedInterests([...selectedInterests, interest]);
         }
     };
+
+    console.log(interestsData);
 
     // used for mapping
     const filteredInterests = interestsData.filter((interest) =>
