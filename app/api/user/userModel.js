@@ -30,7 +30,7 @@ const userSchema = Schema({
         type: String,
         required: true,
     },
-    favoriteChats: [{ type: Schema.ObjectId, ref: 'Chat', required: false }],
+    favoriteChats: [{ type: Schema.ObjectId, ref: 'FavChat', required: false }],
     interests: {
         type: [String],
         required: false,
@@ -49,7 +49,18 @@ const userSchema = Schema({
         required: false,
     },
     appointments: [
-        { type: Schema.ObjectId, ref: 'Appointment', required: false },
+        {
+            people: [
+                {
+                    type: String,
+                    required: true,
+                },
+            ],
+            date: {
+                type: String, // You can use Date type if you want to store actual dates
+                required: true,
+            },
+        },
     ],
     chats: [{ type: Schema.ObjectId, ref: 'Chat', required: false }],
 });

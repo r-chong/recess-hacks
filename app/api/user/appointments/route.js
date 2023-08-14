@@ -24,25 +24,15 @@ export async function GET(req) {
     let searchParams = searchURL.searchParams;
     const email = searchParams.get('email');
 
-    if (email) {
-        // Find and return user's appointments based on email
-        try {
-            const user = await UserModel.findOne({ email: email });
-            return NextResponse.json(
-                { appointments: user.appointments },
-                { status: 200 }
-            );
-        } catch (err) {
-            return NextResponse.json({ error: err }, { status: 500 });
-        }
-    } else {
-        // Find and return all users
-        try {
-            const userList = await UserModel.find({});
-            return NextResponse.json({ userList }, { status: 200 });
-        } catch (err) {
-            return NextResponse.json({ error: err }, { status: 500 });
-        }
+    // Find and return user's appointments based on email
+    try {
+        const user = await UserModel.findOne({ email: email });
+        return NextResponse.json(
+            { appointments: user.appointments },
+            { status: 200 }
+        );
+    } catch (err) {
+        return NextResponse.json({ error: err }, { status: 500 });
     }
 }
 
