@@ -48,20 +48,15 @@ export async function GET(req) {
 
 export async function POST(req) {
     const hihi = await req.json();
-    console.log(hihi);
     const email = hihi.email;
     const appointment = hihi.appointment;
 
     try {
         // Find the user by email
-        const user = await UserModel.findOne({ email: email });
-        console.log(appoiontment);
-
-        // Add the appointment to the user's appointments array
-        user.appointments.push(appointment);
-
-        // Save the updated user
-        await user.save();
+        await UserModel.findOneAndUpdate(
+            { email: email },
+            { $push: { appointments: appointment } }
+        );
 
         return NextResponse.json(
             { status: 'Appointment added' },

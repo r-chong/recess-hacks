@@ -26,6 +26,7 @@ export async function GET(req) {
     let searchURL = new URL(req.url);
     let searchParams = searchURL.searchParams;
     const userEmail = searchParams.get('email');
+    console.log('lel');
     try {
         // Find all chats and send back
         const chatData = await ChatModel.find({ people: { $in: [userEmail] } });
@@ -43,6 +44,18 @@ export async function POST(req) {
     const chatData = await req.json();
     console.log(await chatData);
     try {
+        const people = chatData.people;
+
+        // First check if anything is null
+        people.forEach((person) => {
+            if (person === null) {
+                return NextResponse.json(
+                    { error: 'Person is null' },
+                    { status: 500 }
+                );
+            }
+        });
+
         const newChat = new ChatModel(chatData);
         await newChat.save();
         console.log('Chat created:', newChat);
