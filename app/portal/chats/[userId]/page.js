@@ -42,7 +42,6 @@ const ChatPage = ({ userId }) => {
 
     const pushMessage = async (message) => {
         // Returns a list of all the user's chats
-        console.log('ykwhatimnsoding');
         await fetch('/api/chat', {
             method: 'PUT',
             headers: {

@@ -44,7 +44,11 @@ export async function POST(req) {
     try {
         // Find the user by email
         await UserModel.findOneAndUpdate(
-            { email: email },
+            { email: appointment.people[0] },
+            { $push: { appointments: appointment } }
+        );
+        await UserModel.findOneAndUpdate(
+            { email: appointment.people[1] },
             { $push: { appointments: appointment } }
         );
 

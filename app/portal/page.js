@@ -47,7 +47,7 @@ const PortalHome = () => {
     }, [appointments]);
 
     return (
-        <div className="container p-6 mx-auto">
+        <div className="container p-6 mx-auto h-[calc(100vh-148px)] overflow-y-scroll">
             <h1 className="mb-4 text-2xl font-semibold">
                 Upcoming Appointments
             </h1>
