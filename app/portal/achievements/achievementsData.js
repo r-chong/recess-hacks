@@ -20,12 +20,11 @@ const achievementsData = [
                 />
             </svg>
         ),
-        key1: true,
+        earned: false,
     },
     {
-        title: 'Active Contributor',
-        description:
-            "You've posted your thoughts and stories, contributing to a positive atmosphere in the community.",
+        title: 'Profile Button',
+        description: "You've clicked the profile button",
         icon: (
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +40,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Social Butterfly',
@@ -61,6 +61,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Daily Journaler',
@@ -81,6 +82,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Memory Sharer',
@@ -101,6 +103,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Inspiring Storyteller',
@@ -121,6 +124,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Supportive Friend',
@@ -141,6 +145,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Health and Happiness',
@@ -161,6 +166,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Adventurer',
@@ -181,6 +187,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Creative Expression',
@@ -201,6 +208,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Tech Explorer',
@@ -221,6 +229,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Life Wisdom',
@@ -241,6 +250,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Compassionate Listener',
@@ -261,6 +271,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Gratitude Practitioner',
@@ -281,6 +292,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Community Organizer',
@@ -301,6 +313,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Positive Feedback',
@@ -321,6 +334,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Wellness Milestone',
@@ -341,6 +355,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Local Explorer',
@@ -361,6 +376,7 @@ const achievementsData = [
                 />
             </svg>
         ),
+        earned: false,
     },
     {
         title: 'Bookworm',
@@ -381,26 +397,7 @@ const achievementsData = [
                 />
             </svg>
         ),
-    },
-    {
-        title: 'Golden Age Wisdom',
-        description:
-            'Your insights on life during the golden years have been enlightening to the community.',
-        icon: (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                />
-            </svg>
-        ),
+        earned: false,
     },
 ];
 
