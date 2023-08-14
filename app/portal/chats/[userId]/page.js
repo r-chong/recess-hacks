@@ -11,6 +11,11 @@ import pfp from '@public/pfp.png';
 const ChatPage = ({ userId }) => {
     const [textMessage, setTextMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [receiverData, setRecieverData] = useState({
+        name: 'T',
+        initials: '',
+        profilePicture: pfp,
+    });
     const textRef = useRef(null);
 
     useEffect(() => {
@@ -40,6 +45,20 @@ const ChatPage = ({ userId }) => {
         }
     };
 
+    const controlReceiverData = async () => {
+        const response = await fetch('/api/user/?email=' + receiverEmail, {
+            method: 'GET',
+        }).then((res) => res.json());
+        const user = response.user;
+        const data = {
+            name: user.firstName + ' ' + user.lastName,
+            initials: user.firstName[0] + user.lastName[0],
+            profilePicture: user.profilePicture,
+        };
+        setRecieverData(data);
+        console.log(data);
+    };
+
     const pushMessage = async (message) => {
         // Returns a list of all the user's chats
         await fetch('/api/chat', {
@@ -59,9 +78,9 @@ const ChatPage = ({ userId }) => {
             console.log('Getting messages');
             getUserMessages(receiverEmail, userEmail);
         }, 10000);
-    }, [receiverEmail, userEmail]);
 
-    const receiverName = 'John Doe';
+        controlReceiverData();
+    }, [receiverEmail, userEmail]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -92,12 +111,10 @@ const ChatPage = ({ userId }) => {
                     </svg>
                 </Link>
                 <div className="flex items-center gap-4">
-                    <Image
-                        className="w-12 rounded-full"
-                        src={pfp}
-                        alt={receiverName + ' profile picture'}
-                    />
-                    <h1>{receiverName}</h1>
+                    <div className="p-3 text-white rounded-full bg-neutral-600">
+                        <h1>{receiverData.initials}</h1>
+                    </div>
+                    <h1>{receiverData.name}</h1>
                 </div>
             </div>
             <div className="flex-grow">

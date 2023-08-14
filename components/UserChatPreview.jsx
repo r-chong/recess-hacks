@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const UserChatPreview = ({ user, pfp, lastMessage }) => {
+const UserChatPreview = ({ user, lastMessage }) => {
+    // Always do user? in case the user is null
     return (
         <Link
             href={'/portal/chats/' + user?.email}
@@ -10,8 +11,8 @@ const UserChatPreview = ({ user, pfp, lastMessage }) => {
             <div className="flex gap-4 ">
                 <div>
                     <Image
-                        src={pfp}
-                        alt="avatar"
+                        src={user?.profilePicture}
+                        alt={user?.firstName + "'s avatar"}
                         width={50}
                         height={50}
                         className="rounded-full"
