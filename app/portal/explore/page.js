@@ -9,7 +9,9 @@ const ExplorePage = () => {
     // search variables
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedInterests, setSelectedInterests] = useState([]);
+    // * userData is the ultimate source of truth, userCards is the rendered
     const [userData, setUserData] = useState();
+    const [userCards, setUserCards] = useState();
     const [filteredInterests, setFilteredInterests] = useState([]);
     const router = useRouter();
 
@@ -18,9 +20,8 @@ const ExplorePage = () => {
         await fetch('/api/user')
             .then((res) => res.json())
             .then((data) => {
-                // Map this data to a component
-
                 setUserData(data.userList);
+                setUserCards(data.userList);
             });
     };
 
@@ -42,6 +43,13 @@ const ExplorePage = () => {
         getAllInterests();
     }, []);
 
+    useEffect(() => {
+        //Anytime userCards is empty, put userData in it
+        if (!userCards) {
+            setUserCards(userData);
+        }
+    }, [userData, userCards]);
+
     const getSearchTerm = async (interest) => {
         // Returns a list of all the user cards (no params)
         await fetch('/api/user/interests/?interest=' + interest, {
@@ -50,11 +58,7 @@ const ExplorePage = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                if (userCards) {
-                    setUserCards(userCards[0]?.userCards);
-                } else {
-                    setUserCards([]);
-                }
+                setUserCards(data.users);
             });
     };
 
@@ -112,7 +116,7 @@ const ExplorePage = () => {
                 ))}
             </div>
             <div className="flex flex-col gap-3">
-                {userData?.map((user, index) => (
+                {userCards?.map((user, index) => (
                     <UserCard key={index} user={user} router={router} />
                 ))}
             </div>
