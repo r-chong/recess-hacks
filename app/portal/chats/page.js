@@ -3,18 +3,13 @@
 import { useRef, useState, useEffect, use } from 'react';
 import UserChatPreview from '@components/UserChatPreview';
 import pfp from '@public/pfp.png';
-import Image from 'next/image';
 
 const ChatsPage = () => {
     const [userMessages, setUserMessages] = useState([]);
     const [userInfos, setUserInfos] = useState([]);
     const [arrowDisable, setArrowDisable] = useState(true);
     const elementRef = useRef(null);
-    let users = Array(3).fill({
-        firstName: 'Montgomery',
-        lastName: 'Burns',
-        profilePicture: pfp,
-    });
+
     //TODO Request the user's messages from the server based on the user's ID
     const getUserMessages = async () => {
         let userEmail = localStorage.getItem('email');
@@ -71,7 +66,8 @@ const ChatsPage = () => {
     return (
         <div className={'h-full '}>
             <div className="flex flex-col">
-                <h1 className="p-4 text-3xl">Favourite People</h1>
+                {/* 
+                <h1 className="p-4 text-3xl">Favourite People</h1> */}
                 <div className="relative w-full">
                     <div className="relative">
                         <button
@@ -141,7 +137,7 @@ const ChatsPage = () => {
                                 user.user !== null && (
                                     <div
                                         key={index}
-                                        className="p-3 text-white rounded-full bg-neutral-600"
+                                        className="p-8 text-xl text-white rounded-full bg-neutral-600"
                                     >
                                         <h1>
                                             {user.user.firstName[0] +
