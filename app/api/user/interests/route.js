@@ -15,13 +15,27 @@ export async function GET(req) {
     let searchURL = new URL(req.url);
     let searchParams = searchURL.searchParams;
     const interest = searchParams.get('interest');
-
-    let users = await UserModel.find({
-        interests: { $regex: interest, $options: 'i' },
-    });
-    if (users) {
-        return NextResponse.json({ users: users }, { status: 200 });
+    if (interest) {
+        let users = await UserModel.find({
+            interests: { $regex: interest, $options: 'i' },
+        });
+        if (users) {
+            return NextResponse.json({ users: users }, { status: 200 });
+        } else {
+            return NextResponse.json(
+                { error: 'Users not found' },
+                { status: 404 }
+            );
+        }
     } else {
-        return NextResponse.json({ error: 'Users not found' }, { status: 404 });
+        let interests = await UserModel.find().distinct('interests');
+        if (interests) {
+            return NextResponse.json({ interests }, { status: 200 });
+        } else {
+            return NextResponse.json(
+                { error: 'Interests not found' },
+                { status: 404 }
+            );
+        }
     }
 }
