@@ -34,7 +34,7 @@ export default function ProfilePage() {
                     alt={`${profileData.name}'s Profile`}
                     width={128}
                     height={128}
-                    className="w-32 h-32 rounded-full"
+                    className="rounded-full"
                 />
                 <div className="flex flex-col justify-between">
                     <h1 className="text-2xl font-semibold">

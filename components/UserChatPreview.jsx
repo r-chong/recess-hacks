@@ -4,7 +4,7 @@ import Link from 'next/link';
 const UserChatPreview = ({ user, pfp, lastMessage }) => {
     return (
         <Link
-            href={'/portal/chats/' + user.email}
+            href={'/portal/chats/' + user?.email}
             className="flex items-center justify-between py-6 mx-8 border-t-2 border-gray-200"
         >
             <div className="flex gap-4 ">
@@ -19,7 +19,7 @@ const UserChatPreview = ({ user, pfp, lastMessage }) => {
                 </div>
                 <div className="flex flex-col gap-1">
                     <h3 className="text-xl font-medium">
-                        {user.firstName} {user.lastName}
+                        {user?.firstName} {user?.lastName}
                     </h3>
                     <p className="text-gray-500">{lastMessage}</p>
                 </div>
