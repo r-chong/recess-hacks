@@ -77,10 +77,7 @@ const ExplorePage = () => {
                     <GradientButton text="Search" type="submit" />
                 </form>
             </div>
-            <GradientButton
-                text="get all interests"
-                onClick={getAllInterests}
-            />
+
             <div className="flex flex-wrap space-x-2">
                 {filteredInterests.map((interest, index) => (
                     <button
