@@ -6,7 +6,7 @@ import achievementsData from './achievementsData';
 const AchievementsPage = () => {
     const totalPoints = achievementsData.length;
     const [userBadges, setUserBadges] = useState([]);
-    let currentPoints = 1;
+    const [currentPoints, setCurrentPoints] = useState(0);
     const progressPercentage = (currentPoints / totalPoints) * 100;
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const AchievementsPage = () => {
                     let acheivementTitle = achievementsData[i].title;
                     if (badges.includes(acheivementTitle)) {
                         achievementsData[i].earned = true;
-                        currentPoints++;
+                        setCurrentPoints(currentPoints + 1);
                     }
                 }
                 setUserBadges(achievementsData);

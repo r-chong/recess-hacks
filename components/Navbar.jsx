@@ -9,7 +9,6 @@ const Navbar = () => {
     const [page, setPage] = useState('');
     const email = localStorage.getItem('email');
     const pathname = usePathname();
-    console.log(window);
     useEffect(() => {
         setPage(pathname);
     }, [pathname]);
