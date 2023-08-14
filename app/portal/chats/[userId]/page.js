@@ -3,12 +3,16 @@
 import { useRef, useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 import MessagesDisplay from '@components/MessagesDisplay';
 import pfp from '@public/pfp.png';
 
 const ChatPage = ({ userId }) => {
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [textMessage, setTextMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [receiverData, setRecieverData] = useState({
@@ -92,30 +96,52 @@ const ChatPage = ({ userId }) => {
     };
 
     return (
-        <div className="flex flex-col h-full">
-            <div className="flex items-center w-full gap-8 px-8 py-4 text-2xl shadow-sm">
-                <Link href="/portal/chats">
+        <div className="flex flex-col h-[calc(100vh-148px)]">
+            <div className="flex items-center justify-between w-full gap-8 px-8 py-4 text-2xl shadow-sm">
+                <div className="flex items-center gap-8">
+                    <Link href="/portal/chats">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-8 h-8"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15.75 19.5L8.25 12l7.5-7.5"
+                            />
+                        </svg>
+                    </Link>
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 text-white rounded-full bg-neutral-600">
+                            <h1>{receiverData.initials}</h1>
+                        </div>
+                        <h1>{receiverData.name}</h1>
+                    </div>
+                </div>
+                <button
+                    onClick={() => {
+                        router.replace(pathname + '/book-date');
+                    }}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={1.5}
+                        stroke-width="1.5"
                         stroke="currentColor"
-                        className="w-8 h-8"
+                        class="w-8 h-8"
                     >
                         <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 19.5L8.25 12l7.5-7.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9"
                         />
                     </svg>
-                </Link>
-                <div className="flex items-center gap-4">
-                    <div className="p-3 text-white rounded-full bg-neutral-600">
-                        <h1>{receiverData.initials}</h1>
-                    </div>
-                    <h1>{receiverData.name}</h1>
-                </div>
+                </button>
             </div>
             <div className="flex-grow">
                 <MessagesDisplay
